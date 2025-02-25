@@ -71,8 +71,6 @@ int main() {
     mvprintw(3,48,"Instant state cursor"); // below it we need a super fast cursor
     // position of text about tables
     mvprintw(4,1,"Press j,k to switch the truth values of inputs");
-    mvprintw(5,5,"Arbitrary chosen input");
-    mvprintw(6,31,"j    k");
     mvprintw(9,7,"Actual machine state");
     mvprintw(9,31,"%d    %d    %d    %d",a_p,b_p,j,k); 
     mvprintw(10,31,"a_p  b_p  j    k"); 
@@ -85,7 +83,7 @@ int main() {
 
     while (1) {
 	// active text every 4 ms
-	mvprintw(5,31,"%d    %d",j,k); // value for arbitrary chosen input
+	mvprintw(9,41,"%d    %d",j,k); // value for arbitrary chosen input
 
 	mvprintw(5,65,"  "); // clear the previous cursor
 	mvprintw(6,65,"  ");
@@ -127,7 +125,7 @@ int main() {
 						break;
 					}
 				}
-				mvprintw(5,31,"%d    %d",j,k); // value for arbitrary chosen input
+				mvprintw(9,41,"%d    %d",j,k); // value for arbitrary chosen input
 				mvprintw(5,65,"  "); // clear the previous cursor
 				mvprintw(6,65,"  ");
 				mvprintw(7,65,"  ");
@@ -196,7 +194,8 @@ int main() {
 		//displayed text every 2 seconds 
 		// here I need to display the history an also to store it.
 		for (unsigned int l=0;l<20;l++){
-			mvprintw(5+l,98,"  %d   %d   %d   %d",state_history[l][0],state_history[l][1],state_history[l][2],state_history[l][3]);  
+			if (l>0) mvprintw(5+l,100,"%d   %d",state_history[l][0],state_history[l][1]);  
+			if (l<19) mvprintw(6+l,108,"%d   %d",state_history[l][2],state_history[l][3]);  
 		}
 		
 		
