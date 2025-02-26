@@ -50,7 +50,7 @@ int main() {
     // [a_f b_f] is the destination vertex of the edges
     // [j   k  ] is the label of the edges
     mvprintw( 3,70,"Tabular representation");
-    mvprintw( 4,70,"a_p b_p   j   k a_f b_f");  
+    mvprintw( 4,70,"a_p b_p   j   k a_p b_p");  
     mvprintw( 5,70,"  0   0   0   0   0   1");
     mvprintw( 6,70,"  0   0   0   1   0   0");
     mvprintw( 7,70,"  0   0   1   0   1   1");
