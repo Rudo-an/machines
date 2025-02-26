@@ -40,7 +40,6 @@ int main() {
     bool state_history_past[20][4]={0};
     //memset(state_history_p, 0, sizeof(state_history_p));
 
-
     int ch;
     curs_set(0);
     printw("Press 'ESC' to exit and Press 'Space' to stop the machine\n");
@@ -70,7 +69,7 @@ int main() {
     mvprintw(20,70,"  1   1   1   1   0   0");
     mvprintw(3,48,"Instant state cursor"); // below it we need a super fast cursor
     // position of text about tables
-    mvprintw(4,1,"Press j,k to switch the truth values of inputs");
+    mvprintw(6,1,"Press j,k to switch the truth values of inputs");
     mvprintw(9,7,"Actual machine state");
     mvprintw(9,31,"%d    %d    %d    %d",a_p,b_p,j,k); 
     mvprintw(10,31,"a_p  b_p  j    k"); 
@@ -85,24 +84,24 @@ int main() {
 	// active text every 4 ms
 	mvprintw(9,41,"%d    %d",j,k); // value for arbitrary chosen input
 
-	mvprintw(5,65,"  "); // clear the previous cursor
-	mvprintw(6,65,"  ");
-	mvprintw(7,65,"  ");
-	mvprintw(8,65,"  ");
-	mvprintw(9,65,"  ");
-	mvprintw(10,65,"  ");
-	mvprintw(11,65,"  ");
-	mvprintw(12,65,"  ");
-	mvprintw(13,65,"  ");
-	mvprintw(14,65,"  ");
-	mvprintw(15,65,"  ");
-	mvprintw(16,65,"  ");
-	mvprintw(17,65,"  ");
-	mvprintw(18,65,"  ");
-	mvprintw(19,65,"  ");
-	mvprintw(20,65,"  ");
+	mvprintw(5,65,"    "); // clear the previous cursor
+	mvprintw(6,65,"    ");
+	mvprintw(7,65,"    ");
+	mvprintw(8,65,"    ");
+	mvprintw(9,65,"    ");
+	mvprintw(10,65,"    ");
+	mvprintw(11,65,"    ");
+	mvprintw(12,65,"    ");
+	mvprintw(13,65,"    ");
+	mvprintw(14,65,"    ");
+	mvprintw(15,65,"    ");
+	mvprintw(16,65,"    ");
+	mvprintw(17,65,"    ");
+	mvprintw(18,65,"    ");
+	mvprintw(19,65,"    ");
+	mvprintw(20,65,"    ");
 	y_cursor=5+(a_p<<3)+(b_p<<2)+(j<<1)+k; // set cursor position
-	mvprintw(y_cursor,65,"->"); // display the cursor of instant state
+	mvprintw(y_cursor,65,"--->"); // display the cursor of instant state
 	refresh();
         
 	//input record   
@@ -126,24 +125,24 @@ int main() {
 					}
 				}
 				mvprintw(9,41,"%d    %d",j,k); // value for arbitrary chosen input
-				mvprintw(5,65,"  "); // clear the previous cursor
-				mvprintw(6,65,"  ");
-				mvprintw(7,65,"  ");
-				mvprintw(8,65,"  ");
-				mvprintw(9,65,"  ");
-				mvprintw(10,65,"  ");
-				mvprintw(11,65,"  ");
-				mvprintw(12,65,"  ");
-				mvprintw(13,65,"  ");
-				mvprintw(14,65,"  ");
-				mvprintw(15,65,"  ");
-				mvprintw(16,65,"  ");
-				mvprintw(17,65,"  ");
-				mvprintw(18,65,"  ");
-				mvprintw(19,65,"  ");
-				mvprintw(20,65,"  ");
+				mvprintw(5,65,"    "); // clear the previous cursor
+				mvprintw(6,65,"    ");
+				mvprintw(7,65,"    ");
+				mvprintw(8,65,"    ");
+				mvprintw(9,65,"    ");
+				mvprintw(10,65,"    ");
+				mvprintw(11,65,"    ");
+				mvprintw(12,65,"    ");
+				mvprintw(13,65,"    ");
+				mvprintw(14,65,"    ");
+				mvprintw(15,65,"    ");
+				mvprintw(16,65,"    ");
+				mvprintw(17,65,"    ");
+				mvprintw(18,65,"    ");
+				mvprintw(19,65,"    ");
+				mvprintw(20,65,"    ");
 				y_cursor=5+(a_p<<3)+(b_p<<2)+(j<<1)+k; //set cursor position
-				mvprintw(y_cursor,65,"->"); // display the cursor of instant state
+				mvprintw(y_cursor,65,"--->"); // display the cursor of instant state
 				refresh();
 				usleep(2000);
 			}
@@ -159,12 +158,16 @@ int main() {
 		refresh();
 		loading_counter++;
 	}
-
-
 	
 	//apply changes on the machine every 2 seconds
 	
 	if (counter==500) {
+ 	        //history storage assignement
+		state_history[0][0]=a_p; // a_p assigned
+		state_history[0][1]=b_p; // b_p assigned
+		state_history[0][2]=j; // j   assigned
+		state_history[0][3]=k; // k   assigned
+
 		//machine definition a_f=f1(a_p,b_p,j,k) and b_f=f2(a_p,b_p,j,k) ,we will logical operator except xor(^) which only exists in bitwise .
 		a_f=!a_p&&!b_p&&j||(a_p^b_p)&&(j^k)||a_p&&b_p&&!j; // formula
 		b_f=!k&&(a_p&&b_p||!a_p&&!b_p)||!a_p&&b_p||(a_p&&!b_p)&&k; // formula
@@ -173,12 +176,7 @@ int main() {
 		// assignement: the future becomes the present
 		a_p=a_f; 
 		b_p=b_f;
-		//history storage assignement
-		state_history[0][0]=a_p; // a_p assigned
-		state_history[0][1]=b_p; // b_p assigned
-		state_history[0][2]=j; // j   assigned
-		state_history[0][3]=k; // k   assigned
-		
+	
 		mvprintw(9,31,"%d    %d    %d    %d",a_p,b_p,j,k); //present state of the machine
 
 
@@ -194,13 +192,11 @@ int main() {
 		//displayed text every 2 seconds 
 		// here I need to display the history an also to store it.
 		for (unsigned int l=0;l<20;l++){
-			if (l>0) mvprintw(5+l,100,"%d   %d",state_history[l][0],state_history[l][1]);  
-			if (l<19) mvprintw(6+l,108,"%d   %d",state_history[l][2],state_history[l][3]);  
+			mvprintw(5+l,100,"%d   %d   %d   %d",state_history[l][0],state_history[l][1],state_history[l][2],state_history[l][3]);  
 		}
 		
 		
 		mvprintw(14,8,"                   |");
-
 		
 		//counter resets
 		loading_counter=0;
